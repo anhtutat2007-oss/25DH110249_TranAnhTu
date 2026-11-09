@@ -1,0 +1,38 @@
+﻿@model Warehouse_25DH110249.Models.Product
+@{
+    ViewBag.Title = "Câu 6 - Thêm sản phẩm";
+}
+
+<h3 class="text-primary font-weight-bold mb-3">Câu 6: Thêm sản phẩm mới</h3>
+<hr />
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div class="card p-4 col-md-7 shadow-sm">
+        <div class="form-group">
+            <label class="font-weight-bold">Tên sản phẩm (*):</label>
+            @Html.TextBoxFor(m => m.ProductName, new { @class = "form-control", placeholder = "Nhập tên sản phẩm" })
+            @Html.ValidationMessageFor(m => m.ProductName, "", new { @class = "text-danger font-weight-bold" })
+        </div>
+        <div class="form-group">
+            <label class="font-weight-bold">Danh mục (*):</label>
+            @Html.TextBoxFor(m => m.Category, new { @class = "form-control", placeholder = "Nhập danh mục" })
+            @Html.ValidationMessageFor(m => m.Category, "", new { @class = "text-danger font-weight-bold" })
+        </div>
+        <div class="form-group">
+            <label class="font-weight-bold">Đơn giá (*):</label>
+            @Html.TextBoxFor(m => m.Price, new { @class = "form-control", type = "number", step = "0.01", placeholder = "Lớn hơn 0" })
+            @Html.ValidationMessageFor(m => m.Price, "", new { @class = "text-danger font-weight-bold" })
+        </div>
+        <div class="form-group">
+            <label class="font-weight-bold">Số lượng tồn kho (*):</label>
+            @Html.TextBoxFor(m => m.Quantity, new { @class = "form-control", type = "number", placeholder = "Số nguyên không âm" })
+            @Html.ValidationMessageFor(m => m.Quantity, "", new { @class = "text-danger font-weight-bold" })
+        </div>
+        <div>
+            <button type="submit" class="btn btn-success font-weight-bold px-4">Thêm mới</button>
+            <a href="@Url.Action("Index")" class="btn btn-secondary px-4">Hủy bỏ</a>
+        </div>
+    </div>
+}

@@ -1,0 +1,51 @@
+﻿@model IEnumerable<Warehouse_25DH110249.Models.Product>
+@{
+    ViewBag.Title = "Danh sách sản phẩm";
+}
+
+<h3 class="mb-3">Danh sách sản phẩm tồn kho</h3>
+<table class="table table-bordered table-hover text-center">
+    <thead class="thead-dark">
+        <tr>
+            <th>Mã SP</th>
+            <th>Tên sản phẩm</th>
+            <th>Danh mục</th>
+            <th>Đơn giá (VNĐ)</th>
+            <th>Số lượng</th>
+            <th>Mức giá</th>
+            <th>Thao tác</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.ProductID</td>
+                <td class="text-left font-weight-bold">@item.ProductName</td>
+                <td>@item.Category</td>
+                <td>@item.Price.ToString("N0")</td>
+                <td>@item.Quantity</td>
+                <td>
+                    @{
+                        string level = Warehouse_25DH110249.Controllers.ProductsController.GetPriceLevel(item.Price);
+                    }
+                    @if (level == "Giá cao")
+                    {
+                        <span class="badge badge-danger p-2">@level</span>
+                    }
+                    else if (level == "Giá trung bình")
+                    {
+                        <span class="badge badge-warning p-2">@level</span>
+                    }
+                    else
+                    {
+                        <span class="badge badge-success p-2">@level</span>
+                    }
+                </td>
+                <td>
+                    <a href="@Url.Action("Edit", new { id = item.ProductID })" class="btn btn-sm btn-info">Chỉnh sửa</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

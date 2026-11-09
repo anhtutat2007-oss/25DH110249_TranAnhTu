@@ -1,0 +1,35 @@
+﻿@{
+    ViewBag.Title = "Câu 7 - Thống kê kho";
+}
+
+<h3 class="text-primary font-weight-bold mb-4">Câu 7: Thống kê giá và giá trị hàng hóa</h3>
+
+<div class="row">
+    <div class="col-md-4">
+        <div class="card text-white bg-primary mb-3 shadow-sm">
+            <div class="card-header font-weight-bold">TỔNG SỐ SẢN PHẨM</div>
+            <div class="card-body">
+                <h2 class="card-title font-weight-bold">@ViewBag.TotalProducts</h2>
+                <p class="card-text">Tổng số bản ghi trong bảng Products.</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card text-white bg-danger mb-3 shadow-sm">
+            <div class="card-header font-weight-bold">SẢN PHẨM GIÁ CAO</div>
+            <div class="card-body">
+                <h2 class="card-title font-weight-bold">@ViewBag.HighPriceCount</h2>
+                <p class="card-text">Sản phẩm có giá &ge; 500.000 đồng.</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card text-white bg-success mb-3 shadow-sm">
+            <div class="card-header font-weight-bold">TỔNG GIÁ TRỊ TỒN KHO</div>
+            <div class="card-body">
+                <h2 class="card-title font-weight-bold">@String.Format("{0:N0}", ViewBag.TotalInventoryValue) đ</h2>
+                <p class="card-text">Tổng (Price &times; Quantity) toàn bộ kho.</p>
+            </div>
+        </div>
+    </div>
+</div>

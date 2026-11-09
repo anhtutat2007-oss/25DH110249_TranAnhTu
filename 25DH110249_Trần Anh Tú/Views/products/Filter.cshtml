@@ -1,0 +1,76 @@
+﻿@model IEnumerable<Warehouse_25DH110249.Models.Product>
+@{
+    ViewBag.Title = "Câu 3 - Lọc & Sắp xếp";
+}
+
+<h3 class="text-primary font-weight-bold mb-3">Câu 3: Lọc theo khoảng giá và Sắp xếp</h3>
+
+@if (ViewBag.ErrorMessage != null)
+{
+    <div class="alert alert-danger font-weight-bold">@ViewBag.ErrorMessage</div>
+}
+
+<form method="get" action="@Url.Action("Filter")" class="card p-3 mb-4 bg-light shadow-sm">
+    <div class="form-row align-items-center">
+        <div class="col-md-2">
+            <label class="font-weight-bold">Từ giá:</label>
+            <input type="number" name="fromPrice" class="form-control" value="@ViewBag.FromPrice" step="any" placeholder="VNĐ" />
+        </div>
+        <div class="col-md-2">
+            <label class="font-weight-bold">Đến giá:</label>
+            <input type="number" name="toPrice" class="form-control" value="@ViewBag.ToPrice" step="any" placeholder="VNĐ" />
+        </div>
+        <div class="col-md-3">
+            <label class="font-weight-bold">Danh mục:</label>
+            <select name="category" class="form-control">
+                <option value="">-- Tất cả danh mục --</option>
+                @foreach (var c in ViewBag.Categories as List<string>)
+                {
+                    <option value="@c" @(ViewBag.SelectedCategory == c ? "selected" : "")>@c</option>
+                }
+            </select>
+        </div>
+        <div class="col-md-3">
+            <label class="font-weight-bold">Sắp xếp theo giá:</label>
+            <select name="sortOrder" class="form-control">
+                <option value="">-- Mặc định --</option>
+                <option value="asc" @(ViewBag.SortOrder == "asc" ? "selected" : "")>Giá tăng dần</option>
+                <option value="desc" @(ViewBag.SortOrder == "desc" ? "selected" : "")>Giá giảm dần</option>
+            </select>
+        </div>
+        <div class="col-md-2 mt-4">
+            <button type="submit" class="btn btn-success btn-block font-weight-bold">Thực hiện lọc</button>
+        </div>
+    </div>
+</form>
+
+<table class="table table-bordered table-striped text-center shadow-sm">
+    <thead class="thead-dark">
+        <tr>
+            <th>Mã SP</th>
+            <th>Tên sản phẩm</th>
+            <th>Danh mục</th>
+            <th>Đơn giá (VNĐ)</th>
+            <th>Mức giá</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model != null && Model.Any())
+        {
+            foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.ProductID</td>
+                    <td class="text-left font-weight-bold">@item.ProductName</td>
+                    <td>@item.Category</td>
+                    <td class="text-right">@item.Price.ToString("N0") đ</td>
+                    <td>@Warehouse_25DH110249.Controllers.ProductsController.GetPriceLevel(item.Price)</td>
+                </tr>
+            }
+        }
+        else
+        {
+            <tr><td colspan="5" class="text-danger font-weight-bold">Không tìm thấy sản phẩm phù hợp.</td></tr>
+        }
+    </tbody>
+</table>

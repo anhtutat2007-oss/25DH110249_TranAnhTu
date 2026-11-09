@@ -1,0 +1,59 @@
+﻿@{
+    ViewBag.Title = "Câu 4 - Điều chỉnh giá bán";
+    var products = ViewBag.Products as List<Warehouse_25DH110249.Models.Product>;
+}
+
+<h3 class="text-primary font-weight-bold mb-3">Câu 4: Điều chỉnh giá bán sản phẩm</h3>
+
+<div class="row">
+    <!-- CÂU 4A: TĂNG GIÁ -->
+    <div class="col-md-6">
+        <div class="card p-3 border-success mb-3 shadow-sm">
+            <h5 class="text-success font-weight-bold">Câu 4a: Tăng giá bán (%)</h5>
+            @using (Html.BeginForm("IncreasePrice", "Products", FormMethod.Post))
+            {
+                @Html.AntiForgeryToken()
+                <div class="form-group">
+                    <label class="font-weight-bold">Chọn sản phẩm:</label>
+                    <select name="productId" class="form-control" required>
+                        @foreach (var p in products)
+                        {
+                            <option value="@p.ProductID">@p.ProductName (@p.Price.ToString("N0") đ)</option>
+                        }
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="font-weight-bold">Tỷ lệ tăng (%) (0 < % &le; 100):</label>
+                    <input type="number" step="0.01" name="percent" class="form-control" placeholder="Nhập % tăng" required />
+                </div>
+                <button type="submit" class="btn btn-success font-weight-bold">Thực hiện tăng giá</button>
+            }
+        </div>
+    </div>
+
+    <!-- CÂU 4B: GIẢM GIÁ -->
+    <div class="col-md-6">
+        <div class="card p-3 border-danger mb-3 shadow-sm">
+            <h5 class="text-danger font-weight-bold">Câu 4b: Giảm giá bán (%)</h5>
+            @using (Html.BeginForm("DecreasePrice", "Products", FormMethod.Post))
+            {
+                @Html.AntiForgeryToken()
+                <div class="form-group">
+                    <label class="font-weight-bold">Chọn sản phẩm:</label>
+                    <select name="productId" class="form-control" required>
+                        @foreach (var p in products)
+                        {
+                            <option value="@p.ProductID">@p.ProductName (@p.Price.ToString("N0") đ)</option>
+                        }
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="font-weight-bold">Tỷ lệ giảm (%) (0 < % < 100):</label>
+                    <input type="number" step="0.01" name="percent" class="form-control" placeholder="Nhập % giảm" required />
+                </div>
+                <small class="text-muted d-block mb-2">* Giá sau giảm phải &ge; 1.000 đồng.</small>
+                <button type="submit" class="btn btn-danger font-weight-bold">Thực hiện giảm giá</button>
+            }
+        </div>
+    </div>
+</div>

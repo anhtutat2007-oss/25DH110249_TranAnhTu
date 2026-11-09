@@ -1,0 +1,76 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quản lý kho hàng - Warehouse_25DH110249</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" />
+    <style>
+        .header-box {
+            background-color: #0056b3;
+            color: white;
+            padding: 15px;
+        }
+
+        .footer-box {
+            background-color: #212529;
+            color: white;
+            padding: 15px;
+            margin-top: 30px;
+            text-align: center;
+        }
+
+        .sidebar {
+            background-color: #f8f9fa;
+            border-right: 1px solid #dee2e6;
+            min-height: 550px;
+        }
+
+            .sidebar .list-group-item.active {
+                background-color: #0056b3;
+                border-color: #0056b3;
+            }
+    </style>
+</head>
+<body>
+    <!-- HEADER -->
+    <header class="header-box text-center shadow-sm">
+        <h4 class="m-0">HỌ VÀ TÊN: TRẦN ANH TÚ - MSSV: 25DH110249</h4>
+    </header>
+
+    <div class="container-fluid mt-3">
+        <div class="row">
+            <!-- CỘT MENU BÊN TRÁI -->
+            <div class="col-md-3 sidebar p-3">
+                <h5 class="text-primary mb-3">CHỨC NĂNG HỆ THỐNG</h5>
+                <div class="list-group">
+                    <a href="@Url.Action("Index", "Products")" class="list-group-item list-group-item-action">Câu 2. Xem & Sửa sản phẩm</a>
+                    <a href="@Url.Action("Filter", "Products")" class="list-group-item list-group-item-action">Câu 3. Lọc & Sắp xếp</a>
+                    <a href="@Url.Action("AdjustPrice", "Products")" class="list-group-item list-group-item-action">Câu 4. Điều chỉnh giá</a>
+                    <a href="@Url.Action("DiscountTwo", "Products")" class="list-group-item list-group-item-action">Câu 5. Giảm giá 2 sản phẩm (Giao dịch)</a>
+                    <a href="@Url.Action("Create", "Products")" class="list-group-item list-group-item-action">Câu 6. Thêm sản phẩm mới</a>
+                    <a href="@Url.Action("Statistics", "Products")" class="list-group-item list-group-item-action">Câu 7. Thống kê kho hàng</a>
+                </div>
+            </div>
+
+            <!-- NỘI DUNG CHÍNH -->
+            <div class="col-md-9 p-3">
+                @if (TempData["Success"] != null)
+                {
+                    <div class="alert alert-success">@TempData["Success"]</div>
+                }
+                @if (TempData["Error"] != null)
+                {
+                    <div class="alert alert-danger">@TempData["Error"]</div>
+                }
+                @RenderBody()
+            </div>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="footer-box">
+        <p class="m-0">Ngày tháng năm sinh: <strong>07/07/2007</strong> | Bài thi thực hành Lập trình Web</p>
+    </footer>
+</body>
+</html>

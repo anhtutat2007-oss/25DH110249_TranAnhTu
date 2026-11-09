@@ -1,0 +1,59 @@
+﻿@{
+    ViewBag.Title = "Câu 5 - Giảm giá 2 sản phẩm";
+    var products = ViewBag.Products as List<Warehouse_25DH110249.Models.Product>;
+}
+
+<h3 class="text-primary font-weight-bold mb-3">Câu 5: Giảm giá 2 sản phẩm đồng thời (Transaction)</h3>
+<p class="text-muted">Nếu 1 trong 2 sản phẩm sau giảm &lt; 1.000 đồng, hệ thống sẽ từ chối và giữ nguyên giá của cả hai.</p>
+
+@if (ViewBag.Error != null)
+{
+    <div class="alert alert-danger font-weight-bold">@ViewBag.Error</div>
+}
+
+@using (Html.BeginForm("DiscountTwo", "Products", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    <div class="row">
+        <!-- Sản phẩm 1 -->
+        <div class="col-md-6">
+            <div class="card p-3 border-primary mb-3 shadow-sm">
+                <h5 class="font-weight-bold text-primary">Sản phẩm thứ nhất</h5>
+                <div class="form-group">
+                    <label>Chọn sản phẩm:</label>
+                    <select name="id1" class="form-control" required>
+                        @foreach (var p in products)
+                        {
+                            <option value="@p.ProductID">@p.ProductName (Giá: @p.Price.ToString("N0") đ)</option>
+                        }
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Tỷ lệ giảm (%):</label>
+                    <input type="number" step="0.01" name="rate1" class="form-control" placeholder="0 < % < 100" required />
+                </div>
+            </div>
+        </div>
+
+        <!-- Sản phẩm 2 -->
+        <div class="col-md-6">
+            <div class="card p-3 border-primary mb-3 shadow-sm">
+                <h5 class="font-weight-bold text-primary">Sản phẩm thứ hai</h5>
+                <div class="form-group">
+                    <label>Chọn sản phẩm:</label>
+                    <select name="id2" class="form-control" required>
+                        @foreach (var p in products)
+                        {
+                            <option value="@p.ProductID">@p.ProductName (Giá: @p.Price.ToString("N0") đ)</option>
+                        }
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Tỷ lệ giảm (%):</label>
+                    <input type="number" step="0.01" name="rate2" class="form-control" placeholder="0 < % < 100" required />
+                </div>
+            </div>
+        </div>
+    </div>
+    <button type="submit" class="btn btn-primary btn-block font-weight-bold py-2">Áp dụng giao dịch</button>
+}
